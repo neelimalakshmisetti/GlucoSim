@@ -1,0 +1,77 @@
+food,portion_g,carbs_g,protein_g,fat_g,fiber_g,sugar_g,gi,gl_per_portion,source
+White rice (boiled),150,40,4,0.5,1,0.1,73,29.2,USDA + GI DB
+Brown rice,150,38,4,1.5,2,0.5,68,25.8,USDA + GI DB
+Basmati rice,150,39,4,0.5,1,0.1,58,22.6,GI DB
+Chapati (whole wheat),60,20,5,1.5,3,0.5,62,12.4,IFCT
+Paratha (plain),80,25,4,7.0,2,1.0,59,14.8,Approx IFCT
+Idli (2 pcs),100,28,6,1.0,2,1.0,60,16.8,Sydney GI DB
+Dosa (plain),120,30,4,2.0,2,1.0,65,19.5,Sydney GI DB
+Poha,150,35,5,4.0,3,1.0,69,24.2,Approx (flattened rice)
+Upma,150,32,6,6.0,3,1.0,68,21.8,Approx
+Biryani,250,60,12,12.0,4,2.0,70,42.0,Approx Indian cuisine
+Khichdi,200,45,10,6.0,5,2.0,55,24.8,Approx
+Dal (lentil curry),200,30,12,6.0,6,1.0,32,9.6,IFCT
+Rajma curry,200,35,14,7.0,7,2.0,28,9.8,IFCT
+Chole (chickpea curry),200,34,12,8.0,8,2.0,36,12.2,IFCT
+Sambar,150,18,7,3.0,4,1.0,38,6.8,IFCT
+Samosa (1 pc),100,25,5,12.0,3,1.0,48,12.0,IFCT
+Pakora (bhajiya),80,20,6,10.0,3,1.0,46,9.2,IFCT
+Pav Bhaji,250,50,8,12.0,6,4.0,61,30.5,Approx Indian cuisine
+Vada Pav,180,45,7,10.0,4,2.0,60,27.0,Approx Indian cuisine
+Gulab Jamun (2 pcs),100,45,4,12.0,1,25.0,76,34.2,IFCT
+Rasgulla (2 pcs),100,35,6,5.0,0,20.0,63,22.0,IFCT
+Jalebi (50g),50,40,2,5.0,0,25.0,82,32.8,IFCT
+"Laddoo (besan, 50g)",50,28,6,8.0,2,15.0,60,16.8,IFCT
+Kheer (rice pudding),150,35,7,8.0,0,20.0,65,22.8,Approx Indian cuisine
+Chai (with sugar & milk),200,12,4,4.0,0,10.0,58,7.0,Approx
+Lassi (sweet),250,28,9,8.0,0,20.0,65,18.2,IFCT
+Mango shake,250,45,6,6.0,2,35.0,70,31.5,Approx
+Potato curry,200,35,5,10.0,4,2.0,78,27.3,IFCT
+Paneer curry,200,20,14,15.0,2,2.0,34,6.8,IFCT
+Bhindi (okra) curry,200,18,5,8.0,5,1.0,35,6.3,IFCT
+Aloo paratha,120,38,6,8.0,3,2.0,77,29.3,Approx Indian cuisine
+Masala dosa,180,40,6,8.0,3,2.0,72,28.8,Approx Indian cuisine
+Vegetable pulao,200,45,7,10.0,4,2.0,70,31.5,Approx Indian cuisine
+"Pizza (veg, 1 slice)",120,30,10,12.0,2,3.0,80,24.0,Approx Fast Food DB
+Burger (veg),200,45,14,18.0,3,6.0,66,29.7,Approx Fast Food DB
+French fries (medium),117,40,4,17.0,3,0.0,75,30.0,USDA
+"Noodles (veg, Hakka)",200,50,8,12.0,4,2.0,68,34.0,Approx Indian Chinese
+Fried rice (veg),200,48,8,10.0,3,2.0,72,34.6,Approx Indian Chinese
+Manchurian (veg balls),180,36,10,14.0,4,3.0,70,25.2,Approx Indian Chinese
+Pongal (ven pongal),200,42,8,12.0,3,1.0,55,23.1,Regional South Indian
+Idiyappam (string hoppers),150,40,5,2.0,2,1.0,68,27.2,Regional South Indian
+Medu vada (2 pcs),120,28,6,10.0,3,1.0,64,17.9,Regional South Indian
+Appam with stew,200,44,6,10.0,3,2.0,70,30.8,Regional South Indian
+Thepla (2 pcs),100,28,6,8.0,4,1.0,58,16.2,Regional Gujarat
+Dhokla (100g),100,20,6,4.0,2,1.0,35,7.0,Regional Gujarat
+Undhiyu,200,36,8,14.0,5,3.0,55,19.8,Regional Gujarat
+Misal pav,250,52,12,14.0,6,2.0,68,35.4,Regional Maharashtra
+Litti chokha,200,40,10,14.0,5,2.0,64,25.6,Regional Bihar
+Ghugni,200,36,12,8.0,6,2.0,52,18.7,Regional Bengal
+Pakhala bhata,200,30,5,6.0,2,1.0,50,15.0,Regional Odisha
+Chole bhature,250,60,14,20.0,6,2.0,78,46.8,Regional Punjab
+Kachori (1 pc),80,22,5,12.0,2,1.0,67,14.7,Regional UP/Rajasthan
+Paneer butter masala,200,28,14,18.0,2,4.0,55,15.4,Regional Punjab
+Thukpa (veg noodle soup),250,45,8,10.0,4,2.0,62,27.9,Regional NE India
+Ema datshi,200,20,12,14.0,3,2.0,50,10.0,Regional Bhutan/Sikkim
+Gulab Jamun,50,30,2,10.0,0,25.0,75,23.0,
+Rasgulla,60,25,4,5.0,0,22.0,70,18.0,
+Jalebi,40,32,1,6.0,0,28.0,80,26.0,
+Laddu (Besan),35,20,4,8.0,1,15.0,60,12.0,
+Kheer (Rice Pudding),100,35,6,7.0,0,20.0,65,23.0,
+Payasam,100,40,5,8.0,1,22.0,68,27.0,
+Halwa (Sooji),80,45,4,12.0,1,30.0,75,34.0,
+Barfi,40,22,3,9.0,0,18.0,65,14.0,
+Ice Cream,100,28,4,11.0,0,24.0,60,17.0,
+Chocolate Cake,80,50,5,15.0,2,35.0,75,38.0,
+Chicken Curry,150,5,28,15.0,1,2.0,0,0.0,
+Butter Chicken,200,15,30,20.0,2,6.0,35,5.0,
+Chicken Biryani,250,65,20,15.0,3,4.0,70,46.0,
+Fish Curry,150,6,26,12.0,1,2.0,0,0.0,
+Prawn Masala,150,8,24,14.0,1,3.0,0,0.0,
+Egg Curry,150,7,18,12.0,1,2.0,0,0.0,
+Mutton Curry,200,10,25,20.0,1,2.0,0,0.0,
+Pakora (Bhajiya),60,20,5,12.0,2,2.0,70,14.0,
+Samosa,70,25,4,12.0,2,3.0,75,19.0,
+Kachori,80,28,5,15.0,2,4.0,78,22.0,
+Chole Bhature,250,70,15,22.0,6,8.0,85,60.0,
