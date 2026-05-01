@@ -268,7 +268,7 @@ function renderChart(T,noMed,med,baseline){
       ]
     },
     options:{
-      responsive:true,animation:{duration:1000,easing:'easeInOutQuart'},
+      responsive:true,animation:false,
       interaction:{mode:'index',intersect:false},
       plugins:{
         legend:{display:false},
