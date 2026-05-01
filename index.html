@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlucoSim — Glucose Meal Impact Simulator</title>
+<meta name="description" content="Simulate how Indian foods and medications affect your glucose levels with real-time interactive charts.">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+</head>
+<body>
+
+<!-- Ambient orbs -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- Particle canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div class="app-wrapper">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge"><span class="dot"></span>Predictive Health Analytics</div>
+    <h1>GlucoSim</h1>
+    <p>Simulate how Indian foods &amp; medications affect your glucose — powered by pharmacokinetic modeling</p>
+  </header>
+
+  <!-- Food Selection -->
+  <div class="glass-card" style="margin-bottom:20px">
+    <div class="section-title"><span class="icon">🥗</span>Select Your Meal</div>
+    <div class="food-search-wrap">
+      <input class="food-search" id="foodSearch" placeholder="Search foods... (e.g. Rice, Dal, Chapati)" autocomplete="off">
+      <div class="food-dropdown" id="foodDropdown"></div>
+    </div>
+    <div class="selected-foods" id="selectedFoods"></div>
+    <div id="servingInputs" style="margin-top:12px"></div>
+  </div>
+
+  <!-- User Parameters -->
+  <div class="glass-card" style="margin-bottom:20px">
+    <div class="section-title"><span class="icon">👤</span>Your Profile</div>
+    <div class="grid-4" style="gap:20px">
+      <div>
+        <label for="glucoseInput">Current Glucose (mg/dL)</label>
+        <input type="number" id="glucoseInput" min="60" max="300" value="120">
+      </div>
+      <div>
+        <label for="weightInput">Weight (kg)</label>
+        <input type="number" id="weightInput" min="30" max="200" value="70">
+      </div>
+      <div>
+        <label for="activitySlider">Activity Level</label>
+        <input type="range" id="activitySlider" min="-30" max="30" value="0" step="5">
+        <div class="range-labels"><span>Sedentary</span><span>Active</span></div>
+        <div class="range-value" id="activityVal">Moderate</div>
+      </div>
+      <div>
+        <label for="horizonSlider">Prediction Window</label>
+        <input type="range" id="horizonSlider" min="60" max="240" value="180" step="30">
+        <div class="range-value" id="horizonVal">180 min</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medication -->
+  <div class="glass-card" style="margin-bottom:24px">
+    <div class="section-title"><span class="icon">💊</span>Medication</div>
+    <label class="toggle-wrap">
+      <input type="checkbox" id="medToggle">
+      <span class="toggle"></span>
+      <span class="toggle-label">I have taken diabetes medication</span>
+    </label>
+    <div id="medFields" style="display:none;margin-top:20px">
+      <div class="grid-3" style="gap:16px">
+        <div>
+          <label for="medType">Medication Type</label>
+          <select id="medType">
+            <option>Metformin</option>
+            <option>Sulfonylureas</option>
+            <option>DPP-4 Inhibitors</option>
+            <option>SGLT2 Inhibitors</option>
+            <option>Insulin</option>
+          </select>
+        </div>
+        <div>
+          <label for="medDose" id="medDoseLabel">Dose (mg)</label>
+          <input type="number" id="medDose" min="0" max="2000" value="500" step="50">
+        </div>
+        <div>
+          <label for="medTimeSlider">Time Since Dose</label>
+          <input type="range" id="medTimeSlider" min="0" max="240" value="30" step="5">
+          <div class="range-value" id="medTimeVal">30 min ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simulate Button -->
+  <div style="text-align:center;margin-bottom:32px">
+    <button class="btn" id="simulateBtn">
+      <span>⚡</span> Run Glucose Simulation
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div id="loadingState" style="display:none;text-align:center;padding:40px">
+    <div class="spinner"></div>
+    <p style="color:var(--text-muted);margin-top:12px">Simulating pharmacokinetics…</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px;max-width:600px;margin-inline:auto">
+      <div class="skeleton" style="height:80px;border-radius:12px"></div>
+      <div class="skeleton" style="height:80px;border-radius:12px"></div>
+      <div class="skeleton" style="height:80px;border-radius:12px"></div>
+      <div class="skeleton" style="height:80px;border-radius:12px"></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="resultsSection" class="results-section" style="display:none">
+
+    <!-- Metrics -->
+    <div class="metric-grid" id="metricGrid">
+      <div class="metric-card tilt-card">
+        <div class="metric-label">Peak Glucose</div>
+        <div class="metric-value" id="metPeak">—</div>
+        <div class="metric-sub" id="metPeakSub">—</div>
+      </div>
+      <div class="metric-card tilt-card">
+        <div class="metric-label">Time to Peak</div>
+        <div class="metric-value" id="metTimePeak">—</div>
+        <div class="metric-sub">after meal</div>
+      </div>
+      <div class="metric-card tilt-card">
+        <div class="metric-label">Return to Baseline</div>
+        <div class="metric-value" id="metReturn">—</div>
+        <div class="metric-sub" id="metReturnSub">—</div>
+      </div>
+      <div class="metric-card tilt-card">
+        <div class="metric-label">Time in Range</div>
+        <div class="metric-value" id="metTIR">—</div>
+        <div class="metric-sub">70–180 mg/dL</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="glass-card" style="margin-bottom:20px">
+      <div class="chart-title">
+        📈 Glucose Projection
+        <span id="glucoseStatusBadge" class="status-badge" style="margin-left:auto"></span>
+      </div>
+      <div class="chart-wrap" style="border:none;padding:0;background:none">
+        <canvas id="glucoseChart" height="120"></canvas>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>With Medication</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#67e8f9"></div>Without Medication</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f43f5e;opacity:0.5"></div>Baseline</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#10b981;opacity:0.4"></div>Target Range (70–180)</div>
+      </div>
+    </div>
+
+    <!-- Analysis -->
+    <div class="glass-card" style="margin-bottom:20px">
+      <button class="collapsible-btn open" id="analysisToggle">
+        <div class="section-title" style="margin:0"><span class="icon">🧠</span>Interpretation &amp; Recommendations</div>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="collapsible-body open" id="analysisBody">
+        <div class="grid-3" style="gap:16px;margin-bottom:20px">
+          <div class="glass-card" style="padding:16px;text-align:center">
+            <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)">Peak Glucose</div>
+            <div style="font-size:2rem;font-weight:700;margin:8px 0" id="analysisPeak">—</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)" id="analysisPeakTime">—</div>
+          </div>
+          <div class="glass-card" style="padding:16px;text-align:center">
+            <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)">Baseline</div>
+            <div style="font-size:2rem;font-weight:700;margin:8px 0;color:#67e8f9" id="analysisBaseline">—</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">mg/dL</div>
+          </div>
+          <div class="glass-card" style="padding:16px;text-align:center">
+            <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)">Target Range</div>
+            <div style="font-size:1.6rem;font-weight:700;margin:8px 0;color:#6ee7b7">70–180</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">mg/dL</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div id="recommendationBox"></div>
+        <div class="alert alert-info" style="margin-top:12px">
+          <strong>ℹ️ Note</strong>
+          Hover over the chart to see exact glucose values at each time point.
+        </div>
+      </div>
+    </div>
+
+    <!-- Meal Summary -->
+    <div class="glass-card">
+      <div class="section-title"><span class="icon">📋</span>Meal Nutritional Summary</div>
+      <div style="overflow-x:auto">
+        <table class="data-table" id="mealTable">
+          <thead><tr>
+            <th>Food</th><th>Servings</th><th>Carbs (g)</th>
+            <th>Fiber (g)</th><th>Fat (g)</th><th>Protein (g)</th>
+            <th>GI</th><th>GL Est.</th>
+          </tr></thead>
+          <tbody id="mealTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      This is a predictive model for educational purposes only. Always consult your healthcare provider for medical advice.
+    </div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

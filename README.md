@@ -1,42 +1,42 @@
-# Glucose Predictor Pro
+# Glucose Meal Impact Simulator
 
-Streamlit dashboard that predicts survival years for diabetic patients and simulates post‑meal glucose impact. The app runs entirely in `app.py` and trains both RandomForest and XGBoost models on `IDPdataset_9000.csv`, while the nutrition simulator uses `data/indian_food_gi.csv` plus medication inputs to show projected glucose curves.
+A simplified Streamlit application that simulates post-meal glucose impact for common Indian foods.
 
 ## Features
-- **Automated EDA** – dataset preview, summary stats, missingness heatmap, correlation matrix, and feature importance.
-- **Meal Impact Simulator** – choose foods, servings, personal vitals, and medication. Outputs glucose curve, metrics, and recommendations.
-- **Survival Years Prediction** – collects patient profile, scales/encodes fields, blends model output with medical priors, and compares RandomForest vs XGBoost metrics in the sidebar.
-- **Responsive UI** – glassmorphism theme with dark-mode overrides, metric cards, Altair visualizations, and expandable explainers.
 
-## Local Setup
+- **Meal Impact Simulator**: Select Indian foods and portions to predict glucose response
+- **Medication Integration**: Include diabetes medications in simulations  
+- **Interactive Visualizations**: Real-time glucose curves with Altair charts
+- **Personalized Recommendations**: Get health advice based on predictions
+- **Food Database Management**: Upload/download custom food datasets
+
+## Quick Start
+
 ```bash
-python -m venv .venv
-.venv\Scripts\activate  # or source .venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
 ## Required Files
-- `IDPdataset_9000.csv` – main training dataset (kept at repo root).
-- `data/indian_food_gi.csv` – nutrition lookup used by the simulator.
-- `static/bg.jpg` – background image referenced in the CSS theme.
 
-## Deploying on Streamlit Cloud
-1. Push the repo (already on `main`).
-2. In Streamlit Cloud, create a new app pointing to `app.py`.
-3. If you store large datasets elsewhere, update the code to download them at startup or configure secrets for private URLs.
+- `app.py` - Main application
+- `data/indian_food_gi.csv` - Food nutrition database
+- `static/bg.jpg` - Background image (optional)
 
-## Repo Structure
-```
-.
-├── app.py
-├── requirements.txt
-├── IDPdataset_9000.csv
-├── data/
-│   └── indian_food_gi.csv
-└── static/
-    └── bg.jpg
-```
+## Dependencies
 
-Feel free to open an issue or tweak the models/visuals to suit your deployment.
+- streamlit>=1.24.0
+- pandas>=1.5.0  
+- numpy>=1.21.0
+- altair>=4.2.0
+
+## Usage
+
+1. Select food items and serving sizes
+2. Enter personal health information
+3. Add medication details if applicable
+4. Click "Simulate meal impact" to see results
+5. Review glucose projections and recommendations
+
+*Educational use only. Always consult healthcare providers for medical advice.*
 
