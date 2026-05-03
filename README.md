@@ -12,7 +12,7 @@
 
 **Simulate how Indian foods & medications affect your blood glucose levels — powered by pharmacokinetic modeling.**
 
-[🌐 Live Demo](https://glucosim.netlify.app/) · [📋 Report Bug](https://github.com/olivechaitanya/GlucoSim/issues) · [💡 Request Feature](https://github.com/olivechaitanya/GlucoSim/issues)
+[🌐 Live Demo](https://glucosim.netlify.app/) 
 
 </div>
 
